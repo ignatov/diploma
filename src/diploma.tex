@@ -1,0 +1,137 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+% \usepackage{floatflt}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{datetime}
+\usepackage[cm]{fullpage}
+\usepackage{indentfirst}
+\usepackage{subfigure}
+\usepackage[section]{placeins}
+\usepackage{afterpage}
+\usepackage{url}
+\usepackage[unicode]{hyperref}
+\usepackage{ucs}
+\usepackage{listings}
+
+\frenchspacing
+
+% \renewcommand{\textfraction}{0.05}
+% \renewcommand{\topfraction}{0.95}
+% \renewcommand{\bottomfraction}{0.95}
+% \renewcommand{\floatpagefraction}{0.35}
+% \setcounter{totalnumber}{10}
+
+\setlength{\parindent}     {0pt}
+\setlength{\parskip}       {1.5ex plus 0.5ex minus 0.2ex}
+\setlength{\marginparwidth}{80pt}
+
+\newdateformat{rudate} {\twodigit{\THEDAY}.\twodigit{\THEMONTH}.\THEYEAR}
+
+\title{Расширение системы типов статически типизированного языка}
+\author{Игнатов Сергей}
+% \date{\rudate\formatdate{15}{11}{2011}}
+% \date{\rudate\formatdate{15}{11}{2011}\,--\,\rudate\today}
+\date{\rudate\today}
+
+\begin{document}
+
+\maketitle
+\clearpage
+\addcontentsline{toc}{section}{Содержание}
+\tableofcontents
+
+\section{Введение}
+
+\section{Обзор средств расширения систем типов}
+\subsection{Поставщики типов в языке F\#}
+\subsection{Загрузчики типов в языке Gosu}
+\subsection{Схожие механизмы}
+
+\section{Загрузчики типов в языке Extensible Kotlin}
+\subsection{Язык Kotlin}
+\subsection{Цель и задачи}
+\subsection{Архитектура компилятора Extensible Kotlin}
+\subsubsection{Расширяемые компиляторы в других языках}
+
+\subsection{Загрузчик типов из схем XML}
+\subsubsection{Пример входных данных}
+\subsubsection{Примеры языков со встроенной поддержкой XML}
+\subsubsection{Импортирование типов из схемы XML в программу на языке Extensible Kotlin}
+\subsubsection{Пример использования}
+\subsubsection{Алгоритм работы загрузчика типов}
+\subsubsection{Результаты}
+
+\subsection{Загрузчик типов из заголовочных файлов на языке С}
+\subsubsection{Постановка задачи}
+\subsubsection{Пример входных данных}
+\subsubsection{Импортирование заголовочного файла на языке C программу на языке Extensible Kotlin}
+\subsubsection{Примеры использования}
+\subsubsection{Алгоритм работы загрузчика функций и типов}
+\subsubsection{Результаты}
+\clearpage
+\section{Сравнение с существующими аналогами}
+\subsection{XML:\@ Gosu, F\#, генераторы для Java}
+\subsection{C:\@ JNI, JNA и т.д.}
+\subsection{Сравнение количества кода}
+\subsection{Сравнить что-нибудь еще}
+
+\section{Заключение}
+
+\begin{thebibliography}{9}
+
+\bibitem{joepamer2011}
+    Donna Malayeru, Joe Pamer, Don Syme.
+    \emph{Strongly-Typed Language Supportfor an Information-Rich World}.
+    Microsoft Corparation,
+    2011.
+
+\bibitem{gosuguide}
+    \emph{Gosu Reference Guide}.
+    Guidewire Software, Inc.
+    Available at \url{http://gosu-lang.org/doc/pdf/gosuref.pdf},
+    2011.
+
+\bibitem{bracha}
+    Gilad Bracha.
+    \emph{Pluggable Type Systems}.
+    OOPSLA Workshop on revival of Dynamic Languages.
+    2004.
+
+\bibitem{pierce}
+    Benjamin C. Pierce.
+    \emph{Types and Programming Languages}.
+    The MIT Press, 2002.
+
+\bibitem{javacop2010}
+    S. Markstrum, D. Marino, M. Esquivel, T. D. Millstein, C. Andreae, and J. Noble.
+    \emph{JavaCOP:\@ Declarative pluggable types for Java}.
+    ACM Trans. Program. Lang. Syst., 32(2), 2010.
+
+\bibitem{checkerframework2008}
+    Papi M., Ali M., Correa T.L., Perkins J., Ernst M.D..
+    \emph{Practical Pluggable Types for Java}.
+    ISSTA, Static Analysis, July 20–24, 2008.
+
+\bibitem{strongtalk1993}
+    Gilad Bracha, David Griswold.
+    \emph{Strongtalk: Typechecking Smalltalk in a production environment}.
+    Proceedings of the OOPSLA '93 Conference on Object-oriented Programming Systems, Languages and Applications, 1993.
+
+\bibitem{newspeak2008}
+    Gilad Bracha, Peter Ahe, Vassili Bykov, Eliot Miranda, Yaron Kashai.
+    \emph{The Newspeak Programming Platform}.
+    Cadence Design Systems.
+    Available at \url{http://bracha.org/newspeak.pdf},
+    2008.
+
+\end{thebibliography}
+
+\end{document}
