@@ -1,0 +1,65 @@
+\subsection{Загрузчик типов из схем XML}
+\subsubsection{Пример входных данных}
+
+Представим, что у нас есть следующая схема, описывающая XML файлы, которые мы хотим считывать в нашей программе:
+\lstinputlisting{listings/shiporder.xsd}
+
+После изучения схемы видно, что у элемента shiporder есть список дочерних элементов item, у каждого из которых есть три обязательных поля: строковое title, положительное целое quantity, десятичное price (описывающее стоимость товара) и одно необязательное строковое~--- note.
+
+Подобные рассмотрения приводят к мысли, что схемы данных XML могут один к одному транслироваться в классы языка программирования и обратно.
+
+Следовательно, имеет смысл написание специального расширения языка, которое позволит автоматически загружать типы данных из файлов со схемами и оперировать со статически типизированной информацией, которая согласована с этими схемами.
+
+Пример файла, удовлетворяющей схеме, приведенной выше:
+\lstinputlisting{listings/order.xml}
+
+\subsubsection{Примеры языков со встроенной поддержкой XML}
+Некоторые современные языки программирования обладают встроенной поддержкой XML.
+В языке Scala~\cite{scala-spec} литералы XML являются частью синтаксиса: \td
+
+\begin{lstlisting}
+object XMLTest extends Application {
+  val page = 
+  <html>
+    <head>
+      <title>Hello XHTML world</title>
+    </head>
+    <body>
+      <h1>Hello world</h1>
+      <p><a href="scala-lang.org">Scala</a> talks XHTML</p>
+    </body>
+  </html>;
+  println(page.toString())
+}
+\end{lstlisting}
+
+Сходный синтаксис применён и в расширении языка ECMAScript~--- E4X~\cite{E4X} (ECMAScript for XML):
+
+\begin{lstlisting}
+var sales = <sales vendor="John">
+    <item type="peas" price="4" quantity="6"/>
+    <item type="carrot" price="3" quantity="10"/>
+    <item type="chips" price="5" quantity="3"/>
+  </sales>;
+alert(sales.@vendor);
+\end{lstlisting}
+
+\subsubsection{Импортирование типов из схемы XML в программу на языке Extensible Kotlin}
+Механизм загрузки типов из схем XML в языке Extensible Kotlin схож с механизмом в языке Gosu\td.
+В программу необходимо подключить XSD файл, описывающий типы 
+\td
+
+\subsubsection{Пример использования}
+После подключения схемы в программу, загруженные типы станут доступны для использования: \td
+\begin{lstlisting}
+val bread = item("Bread", null, 2, 10.0)
+val order = shiporder(List<item>(bread))
+println(order.toXML())
+
+val fromFile : shiporder = loadFromFile("order.xml")
+for (i in fromFile.itemList)
+  println(i.title)
+
+\end{lstlisting}
+\subsubsection{Алгоритм работы загрузчика типов}
+\subsubsection{Результаты}
