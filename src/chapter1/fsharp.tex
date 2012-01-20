@@ -1,0 +1,28 @@
+\subsection{Поставщики типов в языке F\#}\label{f-sharp-type-providers}
+Одновременно с выпуском версии 3.0 языка F\# его разработчики сообщили о введении новой концепции развития~--- информационно насыщенном программировании (Information Rich Programming)~\cite{joepamer2011}.
+Одним из нововведений, поддерживающим эту концепцию являются поставщики типов (Type Providers).
+Поставщики типов позволяют получить статически типизированный доступ к различным источникам данных.
+В стандартной поставке языка F\# существуют реализации поставщиков типов для работы с базами данных, с серверами, поддерживающими протокол OData (Open Data Protocol) и другие\footnote{Информация о поставщиках типов доступна по адресу \url{http://msdn.microsoft.com/en-us/library/hh156509(v=vs.110).aspx}.}.
+
+\subsubsection{Примеры}
+\begin{description}
+\item[Поставщик типов для файлов с ресурсами.] Строки \texttt{string1} и \texttt{string2} определены внутри файла \texttt{Resource.resx}.
+
+\lstinputlisting{listings/resource_type_provider.fs}
+Результат выполнения:
+\begin{lstlisting}
+string1 from resource is First
+string2 from resource is Second
+\end{lstlisting}
+
+\item[Поставщик типов для файлов баз данных.] Таблица \texttt{students} содержится в файле \texttt{DataClasses.dbml}.
+
+\lstinputlisting{listings/dbml_type_provider.fs}
+Результат выполнения:
+\begin{lstlisting}
+student name = Anita
+student name = Ken
+student name = Cathy
+\end{lstlisting}
+
+\end{description}    
