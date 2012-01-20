@@ -1,4 +1,5 @@
 \subsection{Загрузчик типов из схем XML}
+
 \subsubsection{Пример входных данных}
 
 Представим, что у нас есть следующая схема, описывающая XML файлы, которые мы хотим считывать в нашей программе:
@@ -51,6 +52,7 @@ alert(sales.@vendor);
 
 \subsubsection{Пример использования}
 После подключения схемы в программу, загруженные типы станут доступны для использования: \td
+
 \begin{lstlisting}
 val bread = item("Bread", null, 2, 10.0)
 val order = shiporder(List<item>(bread))
@@ -59,7 +61,11 @@ println(order.toXML())
 val fromFile : shiporder = loadFromFile("order.xml")
 for (i in fromFile.itemList)
   println(i.title)
-
 \end{lstlisting}
+
 \subsubsection{Алгоритм работы загрузчика типов}
+
 \subsubsection{Результаты}
+Реализован механизм загрузки типов из схем XML в языке Extensible Kotlin.
+
+Проведен сравнительный анализ как со сходными механизмами извлечения типов, доступными в языках F\# и Gosu, так и со стандартными решениями, которые используются для работы со схемами данных, предаставленными в виде схем XML (XSD файлов).
