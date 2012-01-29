@@ -64,7 +64,9 @@ int calculate_str_len(char *name) {
 \begin{lstlisting}[language=Java]
 class MyCallBack implements org.jna.Callback {
   public void callback(String param1, String param2) {
-    System.out.println("From C received 2 params: " + param1 + ", " + param2);
+    System.out.println(
+      "From C received 2 params: " + param1 + ", " + param2
+    );
   }
 }
 public class App {
@@ -77,7 +79,7 @@ public class App {
 
 Ясно, что появление класса \texttt{MyCallBack} обусловлено только конвенциями, которые приняты в языке Java. Потому как класс нужен только для хранения метода \texttt{void callback} внутри себя.
 
-При использовании функций обратного вызова из языка Extensible Kotlin можно передавать их явно:
+Синтаксис языка Extensible Kotlin позволяет передавать функциональные литералы, а не классы в качестве параметров функций. Это позволяет убрать промежуточные <<классы-обертки>>. Таким образом, функциональный литерал передается в качестве функции обратного вызова в явном виде:
 \begin{lstlisting}
 fun main(args : Array<String>) {
   MyLib.INSTANCE.register_callback({
@@ -87,7 +89,9 @@ fun main(args : Array<String>) {
 }
 \end{lstlisting}
 
-Во время трансформации, функциональные литералы переданные в функции вида \texttt{register\_callback} оборачиваются в объекты, реализующие интерфейс \texttt{Callback} для совместимостью с библиотекой JNA.
+В итоге, снижается <<синтаксический шум>>, который присущ программам на языке Java и повышается читаемость программы.
+
+Во время трансформации, функциональные литералы переданные в функции вида \texttt{register\_callback} оборачиваются в объекты, реализующие интерфейс \texttt{Callback} для совместимости с библиотекой JNA.
 
 Промежуточное представление выглядит следующим образом:
 \begin{lstlisting}
