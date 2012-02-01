@@ -16,25 +16,48 @@
 
 \subsubsection{Примеры языков со встроенной поддержкой XML}
 Некоторые современные языки программирования обладают встроенной поддержкой XML.
-В языке Scala~\cite{scala-spec} литералы XML являются частью синтаксиса: \td
+\begin{description}
+\item[Scala.] В языке Scala~\cite{scala-spec} литералы XML являются частью синтаксиса: \td
 
 \begin{lstlisting}
-object XMLTest extends Application {
-  val page = 
-  <html>
-    <head>
-      <title>Hello XHTML world</title>
-    </head>
-    <body>
-      <h1>Hello world</h1>
-      <p><a href="scala-lang.org">Scala</a> talks XHTML</p>
-    </body>
-  </html>;
-  println(page.toString())
-}
+val document =
+  <root>
+    <child>
+      <grandchild an_attribute="value1" />
+      <grandchild an_attribute="value2" />
+    </child>
+  </root>
+\end{lstlisting}
+Во внутреннем представлении компилятора каждый XML--литерал является экземпляром класса \path{scala.xml.Elem}~\footnote{http://www.scala-lang.org/api/current/scala/xml/Elem.html}:
+
+\begin{lstlisting}
+val document =
+scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
+  scala.xml.Elem(null, "child", scala.xml.Null, scala.xml.TopScope,
+    scala.xml.Elem(null, "grandchild",
+      new scala.xml.UnprefixedAttribute(
+        "an_attribute","value1", scala.xml.Null),
+      scala.xml.TopScope,
+      scala.xml.Text("content1")
+    ),
+    scala.xml.Elem(null, "grandchild",
+      new scala.xml.UnprefixedAttribute(
+        "an_attribute","value2", scala.xml.Null),
+      scala.xml.TopScope,
+      scala.xml.Text("content2")
+    )
+  )
+) 
 \end{lstlisting}
 
-Сходный синтаксис применён и в расширении языка ECMAScript~--- E4X~\cite{E4X} (ECMAScript for XML):
+В языке Scala для работы с XML предлагается достаточно мощный интерфейс. Именно он и используется в многочисленных каркасах для создания веб-приложений (web application frameworks), написанных на Scala. \td
+
+Также стоит отметить критику пакета \path{scala.xml} о недостаточной производительности, неконсистентности некоторых методов и т.п.
+
+Главным критиком этого пакета является Daniel Spiewak, который предлагает свою, улучшенную версию библиотеки для нативной работы с XML:
+Anti-XML~\footnote{http://anti-xml.org/}.
+
+\item[ECMAScript for XML.] Сходный синтаксис применён и в расширении языка ECMAScript~--- E4X~\cite{E4X} (ECMAScript for XML):
 
 \begin{lstlisting}
 var sales = <sales vendor="John">
@@ -44,6 +67,7 @@ var sales = <sales vendor="John">
   </sales>;
 alert(sales.@vendor);
 \end{lstlisting}
+\end{description}
 
 \subsubsection{Импортирование типов из схемы XML в программу на языке Extensible Kotlin}
 Механизм загрузки типов из схем XML в языке Extensible Kotlin схож с механизмом в языке Gosu\td.
