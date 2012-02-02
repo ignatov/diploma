@@ -10,6 +10,8 @@ build: diploma
 
 diploma:
 	pdflatex diploma.tex
+	bibtex diploma.aux
+	pdflatex diploma.tex
 	pdflatex diploma.tex
 
 clean:
