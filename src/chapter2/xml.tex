@@ -32,7 +32,7 @@ val document =
 \end{lstlisting}
 Во внутреннем представлении компилятора каждый XML--литерал является экземпляром класса \path{scala.xml.Elem}\footnote{http://www.scala-lang.org/api/current/scala/xml/Elem.html}:
 
-\begin{lstlisting}[caption={Внутреннее представление XML литералов из~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
+\begin{lstlisting}[caption={Внутреннее представление XML литералов из примера~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
 val document =
 scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
   scala.xml.Elem(null, "child", scala.xml.Null, scala.xml.TopScope,
@@ -52,12 +52,13 @@ scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
 ) 
 \end{lstlisting}
 
-В языке Scala для работы с XML предлагается достаточно мощный интерфейс. Именно он и используется в многочисленных каркасах для создания веб-приложений (web application frameworks), написанных на Scala. \td
+В языке Scala для работы с XML предлагается достаточно мощный интерфейс. Именно он и используется в многочисленных каркасах для создания веб-приложений (web application frameworks), написанных на Scala.
 
-Также стоит отметить критику пакета \path{scala.xml} о недостаточной производительности, несогласованности некоторых методов и т.п.
+С точки зрения подобного класса программ (библиотек для создания веб--приложений), нативная поддержка XML
+литералов в языке является несомненным плюсом, нежели минусом, позволяя прозрачно работать с пользовательскими шаблонами.
 
-Главным критиком этого пакета является Daniel Spiewak, который предлагает свою, улучшенную версию библиотеки для нативной работы с XML:
-Anti-XML\footnote{http://anti-xml.org/}.
+Также стоит отметить критику пакета \path{scala.xml} о недостаточной производительности, несогласованности некоторых методов и т.п. 
+Главным критиком этого пакета является Daniel Spiewak, который предлагает свою, улучшенную версию библиотеки для нативной работы с XML: Anti-XML\footnote{http://anti-xml.org/}.
 
 Сходный синтаксис применён и в расширении языка ECMAScript~--- E4X~\cite{E4X} (ECMAScript for XML).
 
