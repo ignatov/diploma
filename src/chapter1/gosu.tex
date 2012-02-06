@@ -1,0 +1,64 @@
+\subsection{Загрузчики типов в языке Gosu}\label{gosu-type-loaders}
+В языке Gosu~\cite{gosuguide} существует открытая система типов (The Open Type System), которая позволяет реализовывать собственные загрузчики типов (type loaders) для любых источников.
+Существенным минусом этой реализации является создание типов загружаемых данных на этапе выполнения программы, а не на этапе компиляции.
+В стандартной библиотеке языка Gosu существуют загрузчики для получения типов данных из XSD, WSDL и т.д.
+
+\subsubsection{Примеры}
+
+Рассмотрим следующий пример проекта на языке Gosu, который показывает работу загрузчика типов из XML схем
+со следующим расположением файлов:
+
+\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu. \td}, label=gosu-project-layout]
+/test_project 
+  /src 
+    /xsds
+      employee.xsd 
+    /bin 
+      test_project.gsp
+\end{lstlisting}
+
+\todo{Рассмотрим} подробнее подключаемую схему:
+
+\begin{lstlisting}[caption={Содержимое файла \texttt{employee.xsd} из примера~\ref{gosu-project-layout}.}, label=gosu-employee-xsd]
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="Employee">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="SSN" type="xsd:string"/>
+                <xsd:element name="Name" type="xsd:string"/>
+                <xsd:element name="DateOfBirth" type="xsd:date"/>
+                <xsd:element name="EmployeeType" type="xsd:string"/>
+                <xsd:element name="Salary" type="xsd:long"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+\end{lstlisting}
+
+Можно заметить, что в ней описывается сущность \path{Employee} с пятью полями: строковыми 
+\path{SSN}, \path{Name}, \path{EmployeeType}, целочисленным \path{Salary}
+и одно поле с датой~--- \path{DateOfBirth}.
+
+Подключение схемы в программу на языке Gosu происходит с помощью добавления директории с файлом схемы в \path{classpath}.
+После этого, класс \path{Employee} загружается и становится доступным для использования.
+
+На следующем примере можно видеть создание экземпляра этого класса и заполнение его полей необходимыми данными:
+
+\begin{lstlisting}[caption={Содержимое файла \texttt{test\_project.gsp} из примера~\ref{gosu-project-layout}.}, label=gosu-xsd-loader]
+classpath "../src"
+uses xsds.employee.Employee
+uses gw.xml.date.XmlDate
+var x = new Employee() { 
+    :SSN = "1011001", 
+    :Name = "Ted", 
+    :DateOfBirth = new XmlDate(), 
+    :EmployeeType = "None", 
+    :Salary=100000 
+}
+x.print()
+\end{lstlisting}
+
+\todo{Выведет на консоль: }
+
+
+
