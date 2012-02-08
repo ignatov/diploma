@@ -5,7 +5,9 @@
 \subsubsection{Пример входных данных}
 
 Представим, что у нас есть следующая схема, описывающая XML файлы, которые мы хотим считывать в нашей программе:
+\begin{code}
 \lstinputlisting[caption={Пример XML cхемы.}, label=xsd-example-input]{listings/shiporder.xsd}
+\end{code}
 
 После изучения схемы видно, что у элемента shiporder есть список дочерних элементов item, у каждого из которых есть три обязательных поля: строковое title, положительное целое quantity, десятичное price (описывающее стоимость товара) и одно необязательное строковое~--- note.
 
@@ -14,14 +16,16 @@
 Следовательно, имеет смысл написание специального расширения компилятора языка, которое позволит автоматически загружать типы данных из файлов со схемами и оперировать со статически типизированной информацией, которая согласована с этими схемами.
 
 Пример файла, удовлетворяющей схеме, приведенной выше:
+\begin{code}
 \lstinputlisting[caption={Пример XML файла, удовлетворяющего схеме из примера~\ref{xsd-example-input}.}, label=xml-for-xsd-example]{listings/order.xml}
+\end{code}
 
 \subsubsection{Примеры языков со встроенной поддержкой XML}
 Некоторые современные языки программирования обладают встроенной поддержкой XML.
 
 Например, в уже упомянутом языке Scala~\cite{scala-spec}, литералы XML являются частью синтаксиса:
 
-\begin{lstlisting}[caption={Пример использования литералов XML в языке Scala.}, label=scala-xml-example]
+\begin{code}\begin{lstlisting}[caption={Пример использования литералов XML в языке Scala.}, label=scala-xml-example]
 val document =
   <root>
     <child>
@@ -29,10 +33,10 @@ val document =
       <grandchild an_attribute="value2" />
     </child>
   </root>
-\end{lstlisting}
+\end{lstlisting}\end{code}
 Во внутреннем представлении компилятора каждый XML--литерал является экземпляром класса \path{scala.xml.Elem}\footnote{http://www.scala-lang.org/api/current/scala/xml/Elem.html}:
 
-\begin{lstlisting}[caption={Внутреннее представление XML литералов из примера~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
+\begin{code}\begin{lstlisting}[caption={Внутреннее представление XML литералов из примера~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
 val document =
 scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
   scala.xml.Elem(null, "child", scala.xml.Null, scala.xml.TopScope,
@@ -50,7 +54,7 @@ scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
     )
   )
 )
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 В языке Scala для работы с XML предлагается достаточно мощный интерфейс. Именно он и используется в многочисленных каркасах для создания веб-приложений (web application frameworks), написанных на Scala.
 
@@ -64,7 +68,7 @@ scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
 
 Следующая программа на этом диалекте ECMAScript:
 
-\begin{lstlisting}[caption={Пример использования XML литеров в языке ECMAScript for XML.}, label=e4x-xml-example]
+\begin{code}\begin{lstlisting}[caption={Пример использования XML литеров в языке ECMAScript for XML.}, label=e4x-xml-example]
 var sales = <sales vendor="John">
     <item type="peas" price="4" quantity="6"/>
     <item type="carrot" price="3" quantity="10"/>
@@ -72,7 +76,7 @@ var sales = <sales vendor="John">
   </sales>;
 console.log(sales.@vendor);
 console.log(sales.item[0]);
-\end{lstlisting}
+\end{lstlisting}\end{code}
 выведет на экран \texttt{John} и \texttt{<item type="peas" price="4" quantity="6"/>} соответственно.
 
 Стоит отметить, что широкой распространенности расширение языка ECMAScript for XML не получило.
@@ -84,14 +88,14 @@ OpenOffice.org\footnote{http://www.ecma-international.org/publications/standards
 \subsubsection{Импортирование типов из схемы XML в программу на языке Kotlin}
 Механизм загрузки типов из схем XML в компиляторе Extensible Kotlin схож с механизмом, реализованным в компиляторе языка Gosu.
 В программу необходимо подключить XSD файл, описывающий типы:
-\begin{lstlisting}[caption={Подключение XML схемы в программу на языке Kotlin.}, label={xsd-type-loading-extension-point}]
+\begin{code}\begin{lstlisting}[caption={Подключение XML схемы в программу на языке Kotlin.}, label={xsd-type-loading-extension-point}]
 #TODO
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 \subsubsection{Примеры использования}
 После подключения схемы в программу, загруженные типы станут доступны для использования: \td
 
-\begin{lstlisting}[caption={Пример использования типов, загруженных из XML схемы в языке Kotlin.}, label=kotlin-simple-xml-example]
+\begin{code}\begin{lstlisting}[caption={Пример использования типов, загруженных из XML схемы в языке Kotlin.}, label=kotlin-simple-xml-example]
 val bread = item("Bread", null, 2, 10.0)
 val order = shiporder(List<item>(bread))
 println(order.toXML())
@@ -99,24 +103,24 @@ println(order.toXML())
 val fromFile : shiporder = loadFromFile("order.xml")
 for (i in fromFile.itemList)
   println(i.title)
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 \subsubsection{Алгоритм работы загрузчика типов}
 
 Первым делом, еще до компиляции программы, по подключенным схемам XML строятся описания (дескрипторы) классов на языке Kotlin следующего вида:
 
-\begin{lstlisting}[caption={Примеры описаний классов для загруженных типов.}, label=xsd-type-descriptors]
+\begin{code}\begin{lstlisting}[caption={Примеры описаний классов для загруженных типов.}, label=xsd-type-descriptors]
 class Item(
   var title : String,
   var quantity : Int,
   var price : Double
 )
-public class Shiporder(
+class Shiporder(
   var orderperson : String,
   var shipto : Shipto,
   val items : List<Item>
 )
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 После подключения XML схемы в пакет компиляции, вся информация о загруженных типах становится доступна в среде разработки. То есть доступна навигация, авто--дополнение, поиск вхождений и тому подобные функции, которые присущи современным средам разработки.
 

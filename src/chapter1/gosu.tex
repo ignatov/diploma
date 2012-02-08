@@ -8,18 +8,18 @@
 \begin{description}
 \item[Загрузчик типов из XML схем.] Рассмотрим следующий пример проекта на языке Gosu, который показывает работу загрузчика типов из XML схем со следующим расположением файлов:
 
-\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu. \td}, label=gosu-project-layout]
+\begin{code}\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu. \td}, label=gosu-project-layout]
 /test_project
   /src
     /xsds
       employee.xsd
     /bin
       test_project.gsp
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 \todo{Рассмотрим} подробнее подключаемую схему:
 
-\begin{lstlisting}[caption={Содержимое файла \texttt{employee.xsd} из примера~\ref{gosu-project-layout}.}, label=gosu-employee-xsd]
+\begin{code}\begin{lstlisting}[caption={Содержимое файла \texttt{employee.xsd} из примера~\ref{gosu-project-layout}.}, label=gosu-employee-xsd]
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:element name="Employee">
         <xsd:complexType>
@@ -33,7 +33,7 @@
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 Можно заметить, что в ней описывается сущность \path{Employee} с пятью полями: строковыми
 \path{SSN}, \path{Name}, \path{EmployeeType}, целочисленным \path{Salary}
@@ -44,7 +44,7 @@
 
 На следующем примере можно видеть создание экземпляра этого класса и заполнение его полей необходимыми данными:
 
-\begin{lstlisting}[caption={Содержимое файла \texttt{test\_project.gsp} из примера~\ref{gosu-project-layout}.}, label=gosu-xsd-loader]
+\begin{code}\begin{lstlisting}[caption={Содержимое файла \texttt{test\_project.gsp} из примера~\ref{gosu-project-layout}.}, label=gosu-xsd-loader]
 classpath "../src"
 uses xsds.employee.Employee
 uses gw.xml.date.XmlDate
@@ -56,7 +56,7 @@ var x = new Employee() {
     :Salary=100000
 }
 x.print()
-\end{lstlisting}
+\end{lstlisting}\end{code}
 
 \todo{Выведет на консоль: }
 

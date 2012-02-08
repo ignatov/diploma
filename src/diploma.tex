@@ -23,6 +23,12 @@
 \usepackage{paralist}
 \usepackage{multirow}
 \usepackage{thesis}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{float}
+% \usepackage[scaled=1.04]{couriers}
+% \usepackage{lmodern}
+% \usepackage{pxfonts}
 
 \makeatletter
 \renewcommand{\@biblabel}[1]{#1.}
@@ -46,9 +52,23 @@
 \renewcommand{\theenumiii}{.\arabic{enumiii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
 
+\floatstyle{plain} % optionally change the style of the new float
+\newfloat{code}{H}{myc}
+
+
+\definecolor{javapurple}{rgb}{0.25,0.35,0.9} % keywords
+% \definecolor{javapurple}{rgb}{0.1,0.1,0.1}
+
+
 \lstset{
 captionpos=b,
-breaklines=true
+breaklines=true,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+% basicstyle=\ttfamily\color{black},
+% keywordstyle=\bfseries\color{keyword},
+showstringspaces=false,
+morekeywords={fun, val, var, import, object, uses, classpath, let, for, do, select, in, return, new, null, class}
 }
 
 \renewcommand{\lstlistingname}{Листинг} % TODO
