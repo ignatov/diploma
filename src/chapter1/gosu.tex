@@ -1,5 +1,5 @@
 \subsection{Загрузчики типов в языке Gosu}\label{gosu-type-loaders}
-В языке Gosu~\cite{gosuguide} существует открытая система типов (The Open Type System), которая позволяет реализовывать собственные загрузчики типов (type loaders) для любых источников.
+В языке Gosu~\cite{gosuguide} существует открытая система типов (open type system), которая позволяет реализовывать собственные загрузчики типов (type loaders) для любых источников.
 Существенным минусом этой реализации является создание типов загружаемых данных на этапе выполнения программы, а не на этапе компиляции.
 В стандартной библиотеке языка Gosu существуют загрузчики для получения типов данных из XSD, WSDL и т.д.
 
@@ -8,7 +8,7 @@
 \begin{description}
 \item[Загрузчик типов из XML схем.] Рассмотрим следующий пример проекта на языке Gosu, который показывает работу загрузчика типов из XML схем со следующим расположением файлов:
 
-\begin{code}\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu. \td}, label=gosu-project-layout]
+\begin{code}\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu, использующее загрузку типов из XML схем.}, label=gosu-project-layout]
 /test_project
   /src
     /xsds
@@ -56,9 +56,22 @@ var x = new Employee() {
     :Salary=100000
 }
 x.print()
-\end{lstlisting}\end{code}
+\end{lstlisting}
 
-\todo{Выведет на консоль: }
+Выведет на консоль:
+\begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<Employee>
+  <SSN>1011001</SSN>
+  <Name>Ted</Name>
+  <DateOfBirth>2012-02-09</DateOfBirth>
+  <EmployeeType>None</EmployeeType>
+  <Salary>100000</Salary>
+</Employee>
+\end{lstlisting}
+
+\end{code}
+
 
 \item[Загрузчик типов для создания объектно-реляционное отображение]. Другим примером может служить одна из частей каркаса для построения веб-приложений (web application framework), написанного на языке Gosu~--- Ronin\footnote{\url{http://ronin-web.org/}}.
 
@@ -68,4 +81,3 @@ x.print()
 Вышеперечисленные плюсы позволяют создавать веб-приложения эллегантным способом.
 
 \end{description}
-
