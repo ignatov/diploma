@@ -48,7 +48,7 @@ fun isEven(i : Int) : Boolean {
     return false
 }
 fun main(args : Array<String>) {
-  val criteria = {(i : Int) -> isEven(i) }
+  val criteria = {(i : Int) -> isEven(i)}
   for (i in 0..10)
     System.out?.println(criteria(i))
 }
@@ -56,6 +56,7 @@ fun main(args : Array<String>) {
 	\item[Свойства классов.] Параметры конструктора, отмеченные модификатором \path{val}, являются свойствами класса с тем же именем:
 \begin{code}\begin{lstlisting}
 class Point(val x : Int, val y : Int)
+
 fun main(args : Array<String>) {
   val p = Point(10, 20)
   System.out?.println("x: ${p.x} y: ${p.y}")
