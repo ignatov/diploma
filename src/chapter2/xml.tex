@@ -2,10 +2,9 @@
 
 \todo{Пустая секция, нужно дописать мини-введение.}
 
-\subsubsection{Пример входных данных}
-
-Представим, что у нас есть следующая схема, описывающая XML файлы, которые мы хотим считывать в нашей программе:
 \begin{code}
+\subsubsection{Пример входных данных}
+Представим, что у нас есть следующая схема, описывающая XML файлы, которые мы хотим считывать в нашей программе:
 \lstinputlisting[caption={Пример XML cхемы.}, label=xsd-example-input]{listings/shiporder.xsd}
 \end{code}
 
@@ -91,11 +90,15 @@ OpenOffice.org\footnote{http://www.ecma-international.org/publications/standards
 Механизм загрузки типов из схем XML в компиляторе Extensible Kotlin схож с механизмом, реализованным в компиляторе языка Gosu.
 В программу необходимо подключить XSD файл, описывающий типы:
 \begin{code}\begin{lstlisting}[caption={Подключение XML схемы в программу на языке Kotlin.}, label={xsd-type-loading-extension-point}]
-#TODO
+fun project() {
+  module("org.xsd.shiporder") {
+    kotlin extension XsdTypeLoader("shiporder.xsd")
+  }
+}
 \end{lstlisting}\end{code}
 
-\subsubsection{Примеры использования}
 \begin{code}
+\subsubsection{Примеры использования}
 После подключения схемы в программу, загруженные типы станут доступны для использования:
 
 \begin{lstlisting}[caption={Пример использования типов, загруженных из XML схемы в языке Kotlin.}, label=kotlin-simple-xml-example]
