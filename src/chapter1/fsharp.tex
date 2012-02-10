@@ -2,26 +2,27 @@
 Одновременно с выпуском версии 3.0 языка F\# его разработчики сообщили о введении новой концепции развития~--- информационно насыщенном программировании (Information Rich Programming)~\cite{joepamer2011}.
 Одним из нововведений, поддерживающим эту концепцию являются поставщики типов (type providers).
 Поставщики типов позволяют получить статически типизированный доступ к различным источникам данных.
-В стандартной поставке языка F\# существуют реализации поставщиков типов для работы с базами данных, с серверами, поддерживающими протокол OData (open data protocol) и другие\footnote{Информация о поставщиках типов доступна по адресу \url{http://msdn.microsoft.com/en-us/library/hh156509(v=vs.110).aspx}.}.
+В стандартной поставке языка F\# существуют реализации поставщиков типов для работы с базами данных, с серверами, поддерживающими протокол OData (Open Data Protocol)\footnote{\url{http://www.odata.org/developers/protocols/}} и другие\footnote{\url{http://msdn.microsoft.com/en-us/library/hh156509(v=vs.110).aspx}.}.
 
 \subsubsection{Примеры}
 \begin{description}
 \item[Поставщик типов для файлов с ресурсами.] Строки \path{string1} и \path{string2} определены внутри файла \path{Resource.resx}.
-
+\begin{code}
 \lstinputlisting{listings/resource_type_provider.fs}
-Результат выполнения:
-\begin{code}\begin{lstlisting}
+Результат выполнения программы:
+\begin{lstlisting}
 string1 from resource is First
 string2 from resource is Second
 \end{lstlisting}\end{code}
 
-\item[Поставщик типов для файлов баз данных.] Таблица \path{students} содержится в файле
+\clearpage
 
-\path{DataClasses.dbml}.
+\item[Поставщик типов для файлов баз данных.] Таблица \path{students} содержится в файле \path{DataClasses.dbml}.
+\begin{code}
 
 \lstinputlisting{listings/dbml_type_provider.fs}
-Результат выполнения:
-\begin{code}\begin{lstlisting}
+Результат выполнения программы:
+\begin{lstlisting}
 student name = Anita
 student name = Ken
 student name = Cathy

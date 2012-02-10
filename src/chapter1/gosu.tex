@@ -6,7 +6,7 @@
 \subsubsection{Примеры}
 
 \begin{description}
-\item[Загрузчик типов из XML схем.] Рассмотрим следующий пример проекта на языке Gosu, который показывает работу загрузчика типов из XML схем со следующим расположением файлов:
+\item[Загрузчик типов из XML схем.] Рассмотрим следующий пример проекта на языке Gosu, который показывает работу загрузчика типов из XML схем расположением файлов, показанном в листинге \ref{gosu-project-layout}.
 
 \begin{code}\begin{lstlisting}[caption={Расположение файлов в примере загрузчиков типов на языке Gosu, использующее загрузку типов из XML схем.}, label=gosu-project-layout]
 /test_project
@@ -17,9 +17,9 @@
       test_project.gsp
 \end{lstlisting}\end{code}
 
-\todo{Рассмотрим} подробнее подключаемую схему:
-
-\begin{code}\begin{lstlisting}[caption={Содержимое файла \texttt{employee.xsd} из примера~\ref{gosu-project-layout}.}, label=gosu-employee-xsd]
+\begin{code}
+Рассмотрим подробнее подключаемую схему:
+\begin{lstlisting}[caption={Содержимое файла \texttt{employee.xsd} из примера~\ref{gosu-project-layout}.}, label=gosu-employee-xsd]
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:element name="Employee">
         <xsd:complexType>
@@ -39,7 +39,7 @@
 \path{SSN}, \path{Name}, \path{EmployeeType}, целочисленным \path{Salary}
 и одно поле с датой~--- \path{DateOfBirth}.
 
-Подключение схемы в программу на языке Gosu происходит с помощью добавления директории с файлом схемы в \path{classpath}.
+Подключение схемы в программу на языке Gosu происходит с помощью добавления директории с файлом XML схемы в переменную окружения \path{classpath}.
 После этого, класс \path{Employee} загружается и становится доступным для использования.
 
 На следующем примере можно видеть создание экземпляра этого класса и заполнение его полей необходимыми данными:

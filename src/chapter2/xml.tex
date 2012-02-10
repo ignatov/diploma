@@ -1,3 +1,4 @@
+\clearpage
 \subsection{Загрузчик типов из схем XML}\label{xml-loader}
 
 \todo{Пустая секция, нужно дописать мини-введение.}
@@ -14,9 +15,9 @@
 
 Следовательно, имеет смысл написание специального расширения компилятора языка, которое позволит автоматически загружать типы данных из файлов со схемами и оперировать со статически типизированной информацией, которая согласована с этими схемами.
 
-Пример файла, удовлетворяющей схеме, приведенной выше:
 \begin{code}
-\lstinputlisting[caption={Пример XML файла, удовлетворяющего схеме из примера~\ref{xsd-example-input}.}, label=xml-for-xsd-example]{listings/order.xml}
+Пример файла, удовлетворяющей схеме, приведенной выше:
+\lstinputlisting[language=xml, caption={Пример XML файла, удовлетворяющего схеме из примера~\ref{xsd-example-input}.}, label=xml-for-xsd-example]{listings/order.xml}
 \end{code}
 
 \subsubsection{Примеры языков со встроенной поддержкой XML}
@@ -33,9 +34,11 @@ val document =
     </child>
   </root>
 \end{lstlisting}\end{code}
+
+\begin{code}
 Во внутреннем представлении компилятора каждый XML--литерал является экземпляром класса \path{scala.xml.Elem}\footnote{http://www.scala-lang.org/api/current/scala/xml/Elem.html}:
 
-\begin{code}\begin{lstlisting}[caption={Внутреннее представление XML литералов из примера~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
+\begin{lstlisting}[caption={Внутреннее представление XML литералов из примера~\ref{scala-xml-example}.}, label={scala-xml-example-internal}]
 val document =
 scala.xml.Elem(null, "root", scala.xml.Null, scala.xml.TopScope,
   scala.xml.Elem(null, "child", scala.xml.Null, scala.xml.TopScope,
