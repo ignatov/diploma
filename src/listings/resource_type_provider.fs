@@ -1,5 +1,6 @@
 [<Generate>]
-type T = Microsoft.FSharp.Data.TypeProviders.ResxFile< @"Resource.resx" >
+type T = Microsoft.FSharp.Data.TypeProviders.
+	ResxFile< @"Resource.resx" >
 
 let typeResxProviderTest() =
     printfn "string1 from resource is %s" T.Resource.String1

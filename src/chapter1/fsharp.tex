@@ -6,26 +6,53 @@
 
 \subsubsection{Примеры}
 \begin{description}
-\item[Поставщик типов для файлов с ресурсами.] Строки \path{string1} и \path{string2} определены внутри файла \path{Resource.resx}.
+\item[Поставщик типов для файлов с ресурсами.] Строки \path{string1} и \path{string2} определены внутри файла с ресурсами\footnote{\url{http://msdn.microsoft.com/en-us/library/ekyft91f(v=vs.71).aspx}} \path{Resource.resx}:
 \begin{code}
-\lstinputlisting{listings/resource_type_provider.fs}
+\begin{lstlisting}[caption={Пример файла с ресурсами.}, label=resource-resx]
+<data name="string1">
+    <value>First</value>
+</data>
+<data name="string2">
+    <value>Second</value>
+</data>
+\end{lstlisting}
+\end{code}
+
+\begin{code}
+\lstinputlisting[caption={Пример программы на языке F\#, которая использует механизм загрузки типов из файла с ресурсами, приведенного на листинге \ref{resource-resx}.}, label=resource-type-provider]{listings/resource_type_provider.fs}
+\end{code}
+\begin{code}
 Результат выполнения программы:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Результат выполнения программы \ref{resource-type-provider}.}]
 string1 from resource is First
 string2 from resource is Second
-\end{lstlisting}\end{code}
+\end{lstlisting}
+\end{code}
+
+Атрибут \texttt{[<Generate>]} указывает компилятору на то, что тип \texttt{T} будет сгенерирован, поэтому его не требуется выводить.
 
 \clearpage
 
 \item[Поставщик типов для файлов баз данных.] Таблица \path{students} содержится в файле \path{DataClasses.dbml}.
 \begin{code}
+\lstinputlisting[caption={Пример программы на языке F\#, использующей механизм загрузки типов из файла базы данных.}, label=dbml-type-provider]{listings/dbml_type_provider.fs}
+\end{code}
 
-\lstinputlisting{listings/dbml_type_provider.fs}
+В приведенном выше примере используется, доступный на платформе .Net язык запросов~--- LINQ~\cite{linq}.
+Доступ к этому языку запросов из языка F\# становится доступным благодаря специальному Query Expression\footnote{\url{http://msdn.microsoft.com/en-us/library/hh225374(v=vs.110).aspx}}.
+
 Результат выполнения программы:
-\begin{lstlisting}
+\begin{lstlisting}[caption={Результат выполнения программы \ref{dbml-type-provider}.}, label=dbml-result]
 student name = Anita
 student name = Ken
 student name = Cathy
-\end{lstlisting}\end{code}
+\end{lstlisting}
 
 \end{description}
+
+Приведенные примеры позволяют взглянуть на существующие на сегодняшний день реализации механизма загрузки типов в языке F\#.
+Поставщики типов позволяют получать статически типизированный доступ к различным источникам информации с известным форматом.
+
+Реализации таких механизмов появились как часть концепции развития языка F\#.
+На текущий момент, разработчики языка позиционируют свой продукт как основной инструмент для написания приложений для извлечения и обработки данных на платформе .Net.
+В рамках такого подхода, поставщики типов позволяют эффективно получать доступ к источникам информации разного рода.
