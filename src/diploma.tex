@@ -1,5 +1,4 @@
 \documentclass[a4paper,12pt]{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 % \usepackage{floatflt}
@@ -26,9 +25,12 @@
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{bold-extra}
 % \usepackage[scaled=1.04]{couriers}
 % \usepackage{lmodern}
 % \usepackage{pxfonts}
+
+\DeclareFontShape{OT1}{cmtt}{bx}{n}{<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>cmttb10}{}
 
 \makeatletter
 \renewcommand{\@biblabel}[1]{#1.}
@@ -63,8 +65,9 @@
 \lstset{
 captionpos=b,
 breaklines=true,
-basicstyle=\ttfamily,
-keywordstyle=\color{javapurple}\bfseries,
+% basicstyle=\ttfamily,
+keywordstyle=\bfseries,
+% keywordstyle=\color{javapurple}\bfseries,
 % basicstyle=\ttfamily\color{black},
 % keywordstyle=\bfseries\color{keyword},
 showstringspaces=false,
