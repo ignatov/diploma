@@ -23,6 +23,8 @@
 *.prv
 *.swp
 *.tex~
+*.nav
+*.snm
 diploma.pdf
 ref.pdf
 slides.pdf
