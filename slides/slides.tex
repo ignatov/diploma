@@ -1,6 +1,12 @@
-\documentclass{beamer}
+\documentclass[14pt]{beamer}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\setbeamersize{text margin left=6mm, text margin right=6mm}
+
+\linespread{1.2}
+
 % Стиль презентации
 \usetheme{Amsterdam}
 
@@ -10,15 +16,102 @@
 %gets rid of navigation symbols
 \setbeamertemplate{navigation symbols}{}
 
+\beamertemplatenavigationsymbolsempty
+
 \begin{document}
-\title{Синтез объектно-ориентированных интерфейсов}% из декларативных описаний форматов данных и библиотек}
+\title{Синтез объектно-ориентированных интерфейсов из декларативных описаний форматов данных и библиотек}
 \author{Игнатов С.С.}
 \institute{Санкт-Петербургский государственный политехнический университет \\
 Физико-механический факультет \\
 Кафедра прикладной математики}
 \date{Санкт-Петербург, 2012}
-% Создание заглавной страницы
+
 \frame{\titlepage}
-% Автоматическая генерация содержания
-\frame{\frametitle{Содержание}\tableofcontents}
+
+% \frame{\frametitle{Содержание}\tableofcontents[currentsection]}
+
+\begin{frame}\frametitle{Источники данных}
+    \begin{itemize}
+        \item[---] XSD, WSDL
+        \item[---] Protobuf
+        \item[---] Схемы баз данных
+        \item[---] Заголовочные файлы на языке C
+    \end{itemize}
+    \small{Необходимо наличие декларативного описания (схемы).}
+\end{frame}
+
+\begin{frame}\frametitle{Постановка задачи}
+    Разработать механизм работы с внешними источниками данных.
+
+    Важные свойства:
+    \begin{itemize}
+        \item[---] Статическая типизация
+        \item[---] Синхронизация с интерфейсом
+        \item[---] Удобство использования
+        \item[---] Поддержка в среде разработки
+    \end{itemize}
+    Создать реализации для работы с XML и языком C.
+
+\end{frame}
+
+\begin{frame}\frametitle{Обзор существующих решений} % TODO
+    \begin{itemize}
+        \item[---] Поставщики типов (type providers) в языке F\#
+        \item[---] Загрузчики типов (type loaders) в языке Gosu
+        \item[---] Схожие механизмы:
+            \begin{itemize}
+                \item[---] Pluggable Types
+                \item[---] Представление данных в языке EL1
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Язык программирования Kotlin}
+    \begin{itemize}
+        \item[---] Объектно-ориентированный
+        \item[---] Статически типизированный
+        \item[---] Java Virtual Machine
+        \item[---] Общего назначения
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Основные результаты}
+    Качественные улучшения:
+    \begin{itemize}
+        \item[---] Согласованность с внешними интерфейсами
+        \item[---] Упрощение рабочего процесса программиста
+        \item[---] Отсутствие сгенерированных артефактов в системе контроля версий
+    \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Количественные улучшения}
+    \begin{itemize}
+        \item[---] Лаконичный код:
+            \begin{itemize}
+                \item[---] Сопоставим с Gosu
+                \item[---] в 2--3 раза меньше, чем Java
+            \end{itemize}
+        \item[---] Уменьшение размера бинарной сборки
+    \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Выводы}
+\end{frame}
+
+
+
 \end{document}
+
+% listing example
+% \frame[containsverbatim]{
+% \frametitle{Source code}
+
+% \begin{lstlisting}[language=C]
+% int main() {
+%     printf("Hello World!");
+%     return 0;
+% }
+% \end{lstlisting}
+% }

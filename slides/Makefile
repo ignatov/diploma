@@ -21,3 +21,5 @@ clean:
 	for file in `find . -name "*.out"`; do rm $$file; done
 	for file in `find . -name "*.ftm"`; do rm $$file; done
 	for file in `find . -name "*.eps"`; do rm $$file; done
+	for file in `find . -name "*.nav"`; do rm $$file; done
+	for file in `find . -name "*.snm"`; do rm $$file; done
