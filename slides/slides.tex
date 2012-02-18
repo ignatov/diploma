@@ -1,14 +1,15 @@
-\documentclass[14pt]{beamer}
+\documentclass[12pt]{beamer}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
+\usetikzlibrary{mindmap,trees}
 
 \setbeamersize{text margin left=6mm, text margin right=6mm}
 
-\linespread{1.2}
+% \linespread{1.2}
 
 % Стиль презентации
 \usetheme{Amsterdam}
@@ -43,7 +44,7 @@ every node/.style={node distance=2cm},
 % The comment style is used to describe the characteristics of each force
 comment/.style={rectangle, inner sep=5pt, text width=2.5cm, node distance=0.25cm, font=\scriptsize\sffamily},
 % The force style is used to draw the forces' name
-force/.style={rectangle, draw, fill=blue!5, inner sep=5pt, text width=2.85cm, text badly centered, minimum height=1.2cm, font=\bfseries\footnotesize\sffamily}]
+force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, text badly centered, minimum height=1.2cm, font=\bfseries\footnotesize\sffamily}]
 
 % Draw forces
 \node [force] (rivalry) {Программа};
@@ -85,10 +86,11 @@ force/.style={rectangle, draw, fill=blue!5, inner sep=5pt, text width=2.85cm, te
     \textbf{Задачи:}
     \begin{itemize}
         \item[---] {<<Встроить>>} в язык программирования
-        \item[---] Реализовать расширения компилятора для работы с XML и C
+        \item[---] Создать расширения компилятора для работы с XML и C
         \item[---] Сравнить полученные результаты с аналогами
-        \item[---] Получить опыт разработки подобных механизмов
+        \item[---] Получить опыт для разработки улучшенного подобного в {<<боевом>>} компиляторе
     \end{itemize}
+
     % Разработать механизм работы с внешними источниками данных.
 
     % Важные свойства:
@@ -119,8 +121,6 @@ force/.style={rectangle, draw, fill=blue!5, inner sep=5pt, text width=2.85cm, te
 \end{frame}
 
 \begin{frame}\frametitle{Архитектура компилятора}
-\linespread{0.9}
-\begin{small}
     Фазы компиляции:
     \begin{itemize}
         \item[---] Лексический анализ
@@ -131,20 +131,51 @@ force/.style={rectangle, draw, fill=blue!5, inner sep=5pt, text width=2.85cm, te
         \item[---] \textbf{Повторный анализ типов}
         \item[---] Генерация байт-кода
     \end{itemize}
-\end{small}
-\linespread{1.2}
 \end{frame}
 
-\begin{frame}\frametitle{Пример использования XML}
-\begin{center}
-    \includegraphics[height=4.5cm,width=8.48cm]{shiporder}
+\begin{frame}\frametitle{Архитектура компилятора. Может быть так?}
 
-    \includegraphics[height=3cm,width=8.48cm]{completion}
+\tikzstyle{root concept}+=[concept color=blue!20,minimum size=1cm]
+\tikzstyle{level 1 concept}+=[sibling angle=30]
+\begin{tikzpicture}[mindmap, thick,scale=0.8, every node/.style={scale=0.8}]
+
+\tikzstyle{every node}=[font=\small, scale=0.8]
+
+\node [concept] {Компиляция}
+[clockwise from=-210]
+child { node[concept] (c1) {Лексичес- кий анализ}}
+child { node[concept] (c2) {Синтакси- ческий анализ}}
+child { node[concept] at (0, 1) (c3) {Построение\\ внутреннего\\ представле-\\ния}}
+child { node[concept] (c5) {Анализ типов}}
+child[concept color=blue!50] {
+      node[concept] {Дополни- тельные фазы}
+      [clockwise from=60]
+      child { node[concept, scale=1, font=\small] at (1, 1) {Транс- формация} }
+      child { node[concept] at (1, 0) {Повтор- ный анализ типов} }
+    }
+% child[concept color=blue!70] { node[concept] (c3) {3}}
+child { node[concept] (c6) {Генерация байт-кода}};
+
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}\frametitle{Фаза трансформации (XML)}
+
+\end{frame}
+
+\begin{frame}\frametitle{Фаза трансформации (C)}
+\end{frame}
+
+\begin{frame}\frametitle{Пример использования}
+\begin{center}
+    \includegraphics[height=4.132cm,width=8cm]{shiporder}
+
+    {$\mathbf\downarrow$} % TODO: use tikz fot this: http://tex.stackexchange.com/questions/2152
+
+    \includegraphics[height=2.829cm,width=8cm]{completion}
 \end{center}
 \end{frame}
 
-\begin{frame}\frametitle{Пример использования C}
-\end{frame}
 
 \begin{frame}\frametitle{Основные результаты}
     Качественные улучшения:
