@@ -2,6 +2,9 @@
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
 
 \setbeamersize{text margin left=6mm, text margin right=6mm}
 
@@ -20,37 +23,82 @@
 
 \begin{document}
 \title{Синтез объектно-ориентированных интерфейсов из декларативных описаний форматов данных и библиотек}
-\author{Игнатов С.С. группа 6057/1}
+\author{Игнатов С.С., группа 6057/1}
 % \institute{Санкт-Петербургский государственный политехнический университет \\
 % Физико-механический факультет \\
 % Кафедра прикладной математики}
 \date{Санкт-Петербург, 2012}
 
-\frame{\titlepage}
+\frame{\linespread{1}\titlepage}
 
 % \frame{\frametitle{Содержание}\tableofcontents[currentsection]}
 
-\begin{frame}\frametitle{Источники данных}
-    \begin{itemize}
-        \item[---] XSD, WSDL
-        \item[---] Protobuf
-        \item[---] Схемы баз данных
-        \item[---] Заголовочные файлы на языке C
-    \end{itemize}
-    \small{Необходимо наличие декларативного описания (схемы).}
+\begin{frame}\frametitle{Внешние источники данных}
+\linespread{1}
+
+\begin{tikzpicture}
+[node distance = 1cm, auto,
+% STYLES
+every node/.style={node distance=2cm},
+% The comment style is used to describe the characteristics of each force
+comment/.style={rectangle, inner sep=5pt, text width=2.5cm, node distance=0.25cm, font=\scriptsize\sffamily},
+% The force style is used to draw the forces' name
+force/.style={rectangle, draw, fill=blue!5, inner sep=5pt, text width=2.85cm, text badly centered, minimum height=1.2cm, font=\bfseries\footnotesize\sffamily}]
+
+% Draw forces
+\node [force] (rivalry) {Программа};
+\node [force, above of=rivalry] (substitutes) {XML};
+% \node [force, text width=3cm, dashed, left=1cm of substitutes] (state) {Public policies};
+\node [force, left=1cm of rivalry] (suppliers) {База данных};
+\node [force, right=1cm of rivalry] (users) {WSDL};
+\node [force, below of=rivalry] (entrants) {Библиотека на C};
+
+% RIVALRY
+\node [comment, below=0.25 of rivalry] (comment-rivalry) {};
+% SUPPLIERS
+\node [comment, below=0.25cm of suppliers] {};
+% SUBSTITUTES
+\node [comment, right=0.25 of substitutes] {};
+% USERS
+\node [comment, below=0.25 of users] {};
+% NEW ENTRANTS
+\node [comment, right=0.25 of entrants] {};
+% PUBLIC POLICIES
+% \node [comment, text width=3cm, below=0.25 of state] {};
+
+% Draw the links between forces
+\path[-stealth, thick]
+    (rivalry) edge (substitutes)
+    (rivalry) edge (suppliers)
+    (rivalry) edge (users)
+    % (rivalry) edge (state)
+    (rivalry) edge (entrants);
+
+\end{tikzpicture}
+    \center{\small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}}
 \end{frame}
 
 \begin{frame}\frametitle{Постановка задачи}
-    Разработать механизм работы с внешними источниками данных.
 
-    Важные свойства:
+    \textbf{Цель:} гарантировать корректность работы с внешними источниками.
+
+    \textbf{Задачи:}
     \begin{itemize}
-        \item[---] Статическая типизация
-        \item[---] Синхронизация с интерфейсом
-        \item[---] Удобство использования
-        \item[---] Поддержка в среде разработки
+        \item[---] {<<Встроить>>} в язык программирования
+        \item[---] Реализовать расширения компилятора для работы с XML и C
+        \item[---] Сравнить полученные результаты с аналогами
+        \item[---] Получить опыт разработки подобных механизмов
     \end{itemize}
-    Создать реализации для работы с XML и языком C.
+    % Разработать механизм работы с внешними источниками данных.
+
+    % Важные свойства:
+    % \begin{itemize}
+    %     \item[---] Статическая типизация
+    %     \item[---] Синхронизация с интерфейсом
+    %     \item[---] Удобство использования
+    %     \item[---] Поддержка в среде разработки
+    % \end{itemize}
+    % Создать реализации для работы с XML и языком C.
 
 \end{frame}
 
@@ -58,11 +106,6 @@
     \begin{itemize}
         \item[---] Поставщики типов (type providers) в языке F\#
         \item[---] Загрузчики типов (type loaders) в языке Gosu
-        \item[---] Схожие механизмы:
-            \begin{itemize}
-                \item[---] Pluggable Types
-                \item[---] Представление данных в языке EL1
-            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -78,16 +121,14 @@
 \begin{frame}\frametitle{Архитектура компилятора}
 \linespread{0.9}
 \begin{small}
-    Расширяемые компиляторы: MetaML, MetaOcaml, Haskell, Scala, Gnu Compiler Collection.
-
     Фазы компиляции:
     \begin{itemize}
         \item[---] Лексический анализ
         \item[---] Синтаксический анализ
-        \item[---] Построение внутреннего представления программы
-        \item[---] Разрешение имен и анализ типов
+        \item[---] Построение внутреннего представления
+        \item[---] Анализ типов
         \item[---] \textbf{Трансформация внутреннего представления программы}
-        \item[---] \textbf{Разрешение имен и анализ типов вновь полученных структур}
+        \item[---] \textbf{Повторный анализ типов}
         \item[---] Генерация байт-кода
     \end{itemize}
 \end{small}
@@ -95,6 +136,11 @@
 \end{frame}
 
 \begin{frame}\frametitle{Пример использования XML}
+\begin{center}
+    \includegraphics[height=4.5cm,width=8.48cm]{shiporder}
+
+    \includegraphics[height=3cm,width=8.48cm]{completion}
+\end{center}
 \end{frame}
 
 \begin{frame}\frametitle{Пример использования C}
@@ -120,11 +166,14 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Выводы}
+\begin{frame}\frametitle{Заключение}
+Реализованы механизмы загрузки типов для XML и языка C.
+
+\textbf{Результаты:}
     \begin{itemize}
-        \item[---] Реализовано 2 механизма загрузки типов
-        \item[---] Достигнуты качественные улучшения
-        \item[---] Отсутствие сгенерированных артефактов в системе контроля версий
+        \item[---] Статические гарантии корректности
+        \item[---] Уменьшение объема исходного кода
+        \item[---] Упрощение рабочего процесса
     \end{itemize}
 \end{frame}
 
