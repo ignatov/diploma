@@ -106,13 +106,16 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
     (rivalry) edge (entrants);
 
 \end{tikzpicture}
-    \begin{center}
-        \small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}
-    \end{center}
+
+\begin{center}
+    \small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}
+\end{center}
+
 \end{frame}
 
 \begin{frame}\frametitle{Постановка задачи}
-    \linespread{1.2}
+\begin{large}
+    \linespread{1}
     \textbf{Цель:} гарантировать корректность работы с внешними источниками.
 
     \textbf{Задачи:}
@@ -134,20 +137,23 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
     % \end{itemize}
     % Создать реализации для работы с XML и языком C.
     \linespread{1}
+\end{large}
 \end{frame}
 
 \begin{frame}\frametitle{Обзор существующих решений} % TODO
-    Поставщики типов (type providers) в языке F\#
+\begin{large}
+    \textbf{Поставщики типов} (type providers) в языке F\#
     \begin{itemize}
         \item[---] Функциональный язык
         \item[---] Платформа Microsoft .NET
     \end{itemize}
     \nl
-    Загрузчики типов (type loaders) в языке Gosu
+    \textbf{Загрузчики типов} (type loaders) в языке Gosu
     \begin{itemize}
         \item[---] Платформа JVM
         \item[---] Не компилируется в байт-код
     \end{itemize}
+\end{large}
 \end{frame}
 
 
@@ -159,11 +165,13 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
 \begin{frame}\frametitle{Язык программирования Kotlin}
     \begin{Large}
     \linespread{1}
+    \vspace{-1cm}
     \begin{itemize}
         \item[---] Объектно-ориентированный
         \item[---] Статически типизированный
         \item[---] Компилируется в байт-код для JVM
         \item[---] Общего назначения
+        \item[---] Совместим с языком Java
     \end{itemize}
     \linespread{1}
     \end{Large}
@@ -216,9 +224,9 @@ fun project() {
 
 \tikzstyle{root concept}+=[concept color=blue!20,minimum size=1cm]
 \tikzstyle{level 1 concept}+=[sibling angle=30]
-\begin{tikzpicture}[mindmap, thick,scale=0.8, every node/.style={scale=0.8}]
+\begin{tikzpicture}[mindmap, thick,scale=0.81, every node/.style={scale=0.81}]
 
-\tikzstyle{every node}=[font=\small, scale=0.8]
+\tikzstyle{every node}=[font=\small, scale=0.81]
 
 \node [concept] {Компиляция}
 [clockwise from=-210]
@@ -292,14 +300,14 @@ MyLib.INSTANCE.register_callback(
 
 \begin{frame}\frametitle{Качественные улучшения}
 \linespread{1.1}
-\begin{large}
+\begin{Large}
     \begin{itemize}
         \item[---] Статические гарантии корректности
         \item[---] Согласованность с внешними интерфейсами
         \item[---] Упрощение рабочего процесса программиста
         \item[---] Отсутствие сгенерированных артефактов в системе контроля версий
     \end{itemize}
-\end{large}
+\end{Large}
 \linespread{1}
 \end{frame}
 
@@ -309,13 +317,13 @@ MyLib.INSTANCE.register_callback(
 \begin{table}[!h]
     \begin{tabular}{ | l | c | c | c | c | }
     \hline
-        & Кол-во типов & Программа & Удалено & Отношение \\ \hline
+               & Кол-во типов & Программа & Удалено & Отношение \\ \hline
     Maven      & 166   & 4,5 Кб  & 684 Кб & 152 \\ \hline
     Facebook   & 599   & 15 Кб  & 2,5 Мб & 170 \\ \hline
     \end{tabular}
 \end{table}
 
-\textbf{Лаконичный код:}
+\textbf{Объёи кода:}
 \begin{table}[!h]
     \begin{tabular}{ | l | c | c | }
     \hline
@@ -331,14 +339,17 @@ MyLib.INSTANCE.register_callback(
 \end{frame}
 
 \begin{frame}\frametitle{Заключение}
-Реализованы механизмы загрузки типов для XML и языка C. \nl
+\begin{large}
+Реализованы механизмы загрузки типов для XML и языка C в расширяемом компиляторе языка Kotlin. \nl
 
-\textbf{Результаты:}
+\textbf{Отновные результаты:}
     \begin{itemize}
         \item[---] Статические гарантии корректности
         \item[---] Уменьшение объема исходного кода и бинарной сборки
-        \item[---] Упрощение рабочего процесса
+        \item[---] Упрощение рабочего процесса программиста
+        \item[---] Отсутствие сгенерированного кода в системе контроля версий
     \end{itemize}
+\end{large}
 \end{frame}
 
 \end{document}
