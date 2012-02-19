@@ -9,6 +9,23 @@
 
 \setbeamersize{text margin left=6mm, text margin right=6mm}
 
+
+\definecolor{javapurple}{rgb}{0.25,0.35,0.9} % keywords
+% \definecolor{javapurple}{rgb}{0.1,0.1,0.1}
+
+
+\lstset{
+captionpos=b,
+breaklines=true,
+basicstyle=\ttfamily\footnotesize,
+% keywordstyle=\bfseries,
+keywordstyle=\color{javapurple},
+% basicstyle=\ttfamily\color{black},
+% keywordstyle=\bfseries\color{keyword},
+showstringspaces=false,
+morekeywords={fun, val, var, import, object, uses, classpath, let, for, do, select, in, return, new, null, class}
+}
+
 % \linespread{1.2}
 
 % Стиль презентации
@@ -76,11 +93,13 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
     (rivalry) edge (entrants);
 
 \end{tikzpicture}
-    \center{\small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}}
+    \begin{center}
+        \small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}
+    \end{center}
 \end{frame}
 
 \begin{frame}\frametitle{Постановка задачи}
-
+    \linespread{1.2}
     \textbf{Цель:} гарантировать корректность работы с внешними источниками.
 
     \textbf{Задачи:}
@@ -101,7 +120,7 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
     %     \item[---] Поддержка в среде разработки
     % \end{itemize}
     % Создать реализации для работы с XML и языком C.
-
+    \linespread{1}
 \end{frame}
 
 \begin{frame}\frametitle{Обзор существующих решений} % TODO
@@ -111,14 +130,54 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
     \end{itemize}
 \end{frame}
 
+
+{
+\usebackgroundtemplate{
+    \hspace{4.5cm}
+    \vbox to \paperheight{\vspace{5cm}\hbox to \paperwidth{\hfil\includegraphics[width=1.5in]{kotlin}\hfil}\vfil}
+    }
 \begin{frame}\frametitle{Язык программирования Kotlin}
+    \begin{large}
+    \linespread{1.2}
     \begin{itemize}
         \item[---] Объектно-ориентированный
         \item[---] Статически типизированный
         \item[---] Компилируется в байт-код для JVM
         \item[---] Общего назначения
     \end{itemize}
+    \linespread{1}
+    \end{large}
 \end{frame}
+}
+
+\frame[containsverbatim]{\frametitle{Подключение схемы внешних ресурсов}
+% \begin{itemize}
+    % \item[---]
+После подключения схемы:
+\begin{lstlisting}
+fun project() {
+  module("org.xsd.order") {
+    kotlin extension XsdTypeLoader("order.xsd")
+  }
+}
+\end{lstlisting}
+Создаются дескрипторы для {<<загруженных>>} типов.
+
+Вся типовая информация становится доступной для среды разработки и компилятора.
+    % \item[---]
+    % \item[---]
+% \end{itemize}
+% \textbf{XML схема:}
+
+% \textbf{Заголовочный файл на C:}
+% \begin{lstlisting}
+% fun project() {
+%   module("org.libs.point") {
+%     kotlin extension CTypeLoader("point.h")
+%   }
+% }
+% \end{lstlisting}
+}
 
 \begin{frame}\frametitle{Архитектура компилятора}
     Фазы компиляции:
@@ -160,10 +219,31 @@ child { node[concept] (c6) {Генерация байт-кода}};
 \end{frame}
 
 \begin{frame}\frametitle{Фаза трансформации (XML)}
-
+Во время модификации программы выполняются следующие преобразования:
+\begin{itemize}
+\item[---] Все вхождения типов загруженных классов превращаются в тип \path{Element}~--- тип класса, необходимый для операция на деревом XML документа.
+\item[---] Все вызовы конструкторов загруженных классов замещаются вызовом конструктора класса \path{Element}.
+\item[---] Все обращения на чтение к свойствам загруженных классов (в языке Kotlin нет полей, есть свойства класса) заменяются на обращения к необходимому узлу дерева XML.
+\item[---] Аналогично трансформируются операции на запись, такие как присваивание, запись в ячейку массива и т.п.
+\end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Фаза трансформации (C)}
+\begin{frame}[containsverbatim]\frametitle{Фаза трансформации (C)}
+\begin{lstlisting}
+MyLib.INSTANCE.register_callback {
+  p1, p2 -> println("From C received: $p1, $p2");
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+MyLib.INSTANCE.register_callback(
+  object : org.jna.Callback {
+    fun callback(p1 : String, p2 : String) : Unit {
+      println("From C received: $p1, $p2");
+    }
+  }
+)
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}\frametitle{Пример использования}
