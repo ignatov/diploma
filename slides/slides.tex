@@ -9,6 +9,8 @@
 
 \setbeamersize{text margin left=6mm, text margin right=6mm}
 
+\newcommand{\nl}{\vspace{\baselineskip}}
+\newcommand{\darrow}{\center{\Large{$\mathbf\downarrow$}}}
 
 \definecolor{javapurple}{rgb}{0.25,0.35,0.9} % keywords
 % \definecolor{javapurple}{rgb}{0.1,0.1,0.1}
@@ -41,7 +43,18 @@ morekeywords={fun, val, var, import, object, uses, classpath, let, for, do, sele
 
 \begin{document}
 \title{Синтез объектно-ориентированных интерфейсов из декларативных описаний форматов данных и библиотек}
-\author{Игнатов С.С., группа 6057/1}
+% \author{Игнатов С.С., группа 6057/1}
+
+% \author[shortname]{
+%     \hspace{0.2cm} Выполнил: Игнатов С.С., группа 6057/1 \\
+%     \vspace{0.5cm}
+%     Научный руководитель: Бреслав А.А. \\
+%     \hspace{-2.4cm} Рецензент: Новиков Ф.А.
+%     }
+
+\author{Игнатов С.С., группа 6057/1\\
+\vspace{0.3cm}
+{\small Руководитель: Бреслав А.А.}}
 % \institute{Санкт-Петербургский государственный политехнический университет \\
 % Физико-механический факультет \\
 % Кафедра прикладной математики}
@@ -124,21 +137,28 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
 \end{frame}
 
 \begin{frame}\frametitle{Обзор существующих решений} % TODO
+    Поставщики типов (type providers) в языке F\#
     \begin{itemize}
-        \item[---] Поставщики типов (type providers) в языке F\#
-        \item[---] Загрузчики типов (type loaders) в языке Gosu
+        \item[---] Функциональный язык
+        \item[---] Платформа Microsoft .NET
+    \end{itemize}
+    \nl
+    Загрузчики типов (type loaders) в языке Gosu
+    \begin{itemize}
+        \item[---] Платформа JVM
+        \item[---] Не компилируется в байт-код
     \end{itemize}
 \end{frame}
 
 
 {
 \usebackgroundtemplate{
-    \hspace{4.5cm}
-    \vbox to \paperheight{\vspace{5cm}\hbox to \paperwidth{\hfil\includegraphics[width=1.5in]{kotlin}\hfil}\vfil}
+    \hspace{4.2cm}
+    \vbox to \paperheight{\vspace{5.4cm}\hbox to \paperwidth{\hfil\includegraphics[width=1.5in]{kotlin}\hfil}\vfil}
     }
 \begin{frame}\frametitle{Язык программирования Kotlin}
-    \begin{large}
-    \linespread{1.2}
+    \begin{Large}
+    \linespread{1}
     \begin{itemize}
         \item[---] Объектно-ориентированный
         \item[---] Статически типизированный
@@ -146,7 +166,7 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
         \item[---] Общего назначения
     \end{itemize}
     \linespread{1}
-    \end{large}
+    \end{Large}
 \end{frame}
 }
 
@@ -179,20 +199,20 @@ fun project() {
 % \end{lstlisting}
 }
 
-\begin{frame}\frametitle{Архитектура компилятора}
-    Фазы компиляции:
-    \begin{itemize}
-        \item[---] Лексический анализ
-        \item[---] Синтаксический анализ
-        \item[---] Построение внутреннего представления
-        \item[---] Анализ типов
-        \item[---] \textbf{Трансформация внутреннего представления программы}
-        \item[---] \textbf{Повторный анализ типов}
-        \item[---] Генерация байт-кода
-    \end{itemize}
-\end{frame}
+% \begin{frame}\frametitle{Архитектура компилятора}
+%     Фазы компиляции:
+%     \begin{itemize}
+%         \item[---] Лексический анализ
+%         \item[---] Синтаксический анализ
+%         \item[---] Построение внутреннего представления
+%         \item[---] Анализ типов
+%         \item[---] \textbf{Трансформация внутреннего представления программы}
+%         \item[---] \textbf{Повторный анализ типов}
+%         \item[---] Генерация байт-кода
+%     \end{itemize}
+% \end{frame}
 
-\begin{frame}\frametitle{Архитектура компилятора. Может быть так?}
+\begin{frame}\frametitle{Архитектура компилятора.}
 
 \tikzstyle{root concept}+=[concept color=blue!20,minimum size=1cm]
 \tikzstyle{level 1 concept}+=[sibling angle=30]
@@ -219,21 +239,34 @@ child { node[concept] (c6) {Генерация байт-кода}};
 \end{frame}
 
 \begin{frame}\frametitle{Фаза трансформации (XML)}
-Во время модификации программы выполняются следующие преобразования:
+
+\path{Element}~--- класс для операций с деревом XML документа. \nl
+
+\textbf{Правила:}
 \begin{itemize}
-\item[---] Все вхождения типов загруженных классов превращаются в тип \path{Element}~--- тип класса, необходимый для операция на деревом XML документа.
-\item[---] Все вызовы конструкторов загруженных классов замещаются вызовом конструктора класса \path{Element}.
-\item[---] Все обращения на чтение к свойствам загруженных классов (в языке Kotlin нет полей, есть свойства класса) заменяются на обращения к необходимому узлу дерева XML.
-\item[---] Аналогично трансформируются операции на запись, такие как присваивание, запись в ячейку массива и т.п.
+\item[---] Вхождение <<загруженного>> типа превращается в тип \path{Element}.
+\item[---] Вызов конструктора замещается вызовом конструктора \path{Element}.
+\item[---] Операции на чтение и запись в свойства классов заменяются на обращения и модификацию дерева XML.
 \end{itemize}
+
+\nl
+
+\textbf{Результат:}
+Загруженные типы не попадают в бинарную сборку.
+
 \end{frame}
 
 \begin{frame}[containsverbatim]\frametitle{Фаза трансформации (C)}
+
+Функция обратного вызова <<оборачивается>> в анонимный класс, реализующий \path{Callback}. \nl
+
 \begin{lstlisting}
 MyLib.INSTANCE.register_callback {
   p1, p2 -> println("From C received: $p1, $p2");
 }
 \end{lstlisting}
+
+\darrow
 
 \begin{lstlisting}
 MyLib.INSTANCE.register_callback(
@@ -257,33 +290,53 @@ MyLib.INSTANCE.register_callback(
 \end{frame}
 
 
-\begin{frame}\frametitle{Основные результаты}
-    Качественные улучшения:
+\begin{frame}\frametitle{Качественные улучшения}
+\linespread{1.1}
+\begin{large}
     \begin{itemize}
+        \item[---] Статические гарантии корректности
         \item[---] Согласованность с внешними интерфейсами
         \item[---] Упрощение рабочего процесса программиста
         \item[---] Отсутствие сгенерированных артефактов в системе контроля версий
     \end{itemize}
+\end{large}
+\linespread{1}
 \end{frame}
 
 \begin{frame}\frametitle{Количественные улучшения}
-    \begin{itemize}
-        \item[---] Лаконичный код:
-            \begin{itemize}
-                \item[---] сопоставим с Gosu
-                \item[---] в 2--3 раза меньше, чем Java
-            \end{itemize}
-        \item[---] Уменьшение размера бинарной сборки за счет удаления типовой информации
-    \end{itemize}
+\begin{small}
+\textbf{Уменьшение размера бинарной сборки:}
+\begin{table}[!h]
+    \begin{tabular}{ | l | c | c | c | c | }
+    \hline
+        & Кол-во типов & Программа & Удалено & Отношение \\ \hline
+    Maven      & 166   & 4,5 Кб  & 684 Кб & 152 \\ \hline
+    Facebook   & 599   & 15 Кб  & 2,5 Мб & 170 \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Лаконичный код:}
+\begin{table}[!h]
+    \begin{tabular}{ | l | c | c | }
+    \hline
+    Язык    & Количество строк & Относительно Java \\ \hline
+    Java    & 105   & 1 \\ \hline
+    Gosu    & 36    & 0,34  \\ \hline
+    Kotlin  & 41    & 0,39 \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\end{small}
 \end{frame}
 
 \begin{frame}\frametitle{Заключение}
-Реализованы механизмы загрузки типов для XML и языка C.
+Реализованы механизмы загрузки типов для XML и языка C. \nl
 
 \textbf{Результаты:}
     \begin{itemize}
         \item[---] Статические гарантии корректности
-        \item[---] Уменьшение объема исходного кода
+        \item[---] Уменьшение объема исходного кода и бинарной сборки
         \item[---] Упрощение рабочего процесса
     \end{itemize}
 \end{frame}
