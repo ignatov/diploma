@@ -143,6 +143,12 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
 
 \begin{frame}\frametitle{Обзор существующих решений} % TODO
 \begin{large}
+    \textbf{Генераторы кода}
+    \begin{itemize}
+        \item[---] Усложняют рабочий процесс
+        \item[---] Не избавляют от проблем с синхронизацией
+    \end{itemize}
+    \nl
     \textbf{Поставщики типов} (type providers) в языке F\#
     \begin{itemize}
         \item[---] Функциональный язык
@@ -313,12 +319,12 @@ MyLib.INSTANCE.register_callback(
 \end{frame}
 
 \begin{frame}\frametitle{Количественные улучшения}
-\begin{small}
+\begin{footnotesize}
 \textbf{Уменьшение размера бинарной сборки:}
 \begin{table}[!h]
     \begin{tabular}{ | l | c | c | c | c | }
     \hline
-               & Кол-во типов & Программа & Удалено & Уменьшение \\ \hline
+               & Кол-во типов & Программа (P) & Синтезировано (S) & $S/P$ \\ \hline
     Maven      & 166   & 4,5 Кб  & 684 Кб & 152 \\ \hline
     Facebook   & 599   & 15 Кб  & 2,5 Мб & 170 \\ \hline
     \end{tabular}
@@ -345,7 +351,7 @@ MyLib.INSTANCE.register_callback(
     \end{tabular}
 \end{table}
 
-\end{small}
+\end{footnotesize}
 \end{frame}
 
 \begin{frame}\frametitle{Заключение}
