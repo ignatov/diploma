@@ -108,7 +108,7 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
 \end{tikzpicture}
 
 \begin{center}
-    \small{\textbf{Проблема:} корректно ли использование внешних ресурсов?}
+    \textbf{Проблема:} корректно ли использование внешних ресурсов?
 \end{center}
 
 \end{frame}
@@ -116,7 +116,8 @@ force/.style={rectangle, draw, fill=blue!20, inner sep=5pt, text width=2.85cm, t
 \begin{frame}\frametitle{Постановка задачи}
 \begin{large}
     \linespread{1}
-    \textbf{Цель:} гарантировать корректность работы с внешними источниками.
+    \textbf{Цель:}\\
+    Гарантировать корректность работы с внешними источниками.
 
     \textbf{Задачи:}
     \begin{itemize}
@@ -220,7 +221,7 @@ fun project() {
 %     \end{itemize}
 % \end{frame}
 
-\begin{frame}\frametitle{Архитектура компилятора.}
+\begin{frame}\frametitle{Архитектура компилятора}
 
 \tikzstyle{root concept}+=[concept color=blue!20,minimum size=1cm]
 \tikzstyle{level 1 concept}+=[sibling angle=30]
@@ -252,15 +253,15 @@ child { node[concept] (c6) {Генерация байт-кода}};
 
 \textbf{Правила:}
 \begin{itemize}
-\item[---] Вхождение <<загруженного>> типа превращается в тип \path{Element}.
-\item[---] Вызов конструктора замещается вызовом конструктора \path{Element}.
-\item[---] Операции на чтение и запись в свойства классов заменяются на обращения и модификацию дерева XML.
+\item[---] Вхождение <<загруженного>> типа превращается в тип \path{Element}
+\item[---] Вызов конструктора замещается вызовом конструктора \path{Element}
+\item[---] Операции на чтение и запись в свойства классов заменяются на обращения и модификацию дерева XML
 \end{itemize}
 
 \nl
 
 \textbf{Результат:}
-Загруженные типы не попадают в бинарную сборку.
+\center{<<Загруженные>> типы не попадают в бинарную сборку.}
 
 \end{frame}
 
@@ -317,13 +318,22 @@ MyLib.INSTANCE.register_callback(
 \begin{table}[!h]
     \begin{tabular}{ | l | c | c | c | c | }
     \hline
-               & Кол-во типов & Программа & Удалено & Отношение \\ \hline
+               & Кол-во типов & Программа & Удалено & Уменьшение \\ \hline
     Maven      & 166   & 4,5 Кб  & 684 Кб & 152 \\ \hline
     Facebook   & 599   & 15 Кб  & 2,5 Мб & 170 \\ \hline
     \end{tabular}
 \end{table}
 
-\textbf{Объёи кода:}
+% \begin{table}[!h]
+%     \begin{tabular}{ | l | p{2cm} | p{2cm} | c | p{2cm} | }
+%     \hline
+%                & Количество типов & Размер программы & Удалено & Удалено \newline Программа \\ \hline
+%     Maven      & 166   & 4,5 Кб  & 684 Кб & 152 \\ \hline
+%     Facebook   & 599   & 15 Кб  & 2,5 Мб & 170 \\ \hline
+%     \end{tabular}
+% \end{table}
+
+\textbf{Объём кода:}
 \begin{table}[!h]
     \begin{tabular}{ | l | c | c | }
     \hline
